@@ -15,7 +15,7 @@ export async function shorten(req, res){
         const response = await db.query(`
             SELECT id, "shortUrl" FROM links WHERE "userId"=$1 AND url=$2;`, [user.id, url])
 
-        res.sendStatus(201)
+        res.status(201).send(response.rows[0])
     } catch (err) {
         res.status(500).send(err.message);
     }
