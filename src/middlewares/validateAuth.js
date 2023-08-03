@@ -13,7 +13,7 @@ export async function validateAuth(req, res, next){
         if (!user) return res.sendStatus(401)
       
         delete user.password
-        res.locals.user = user
+        res.locals.user = user.rows[0]
         next();
     } catch (err){
         res.status(500).send(err.message);
