@@ -4,6 +4,7 @@ export const schemaSignup = joi.object({
     name: joi.string().required(),
     email: joi.string().email().required(),
     password: joi.required(),
+    confirmPassword: joi.required(),
 })
 
 export const schemaSignin = joi.object({
