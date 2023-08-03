@@ -29,7 +29,8 @@ CREATE TABLE public.links (
     url text NOT NULL,
     "shortUrl" text NOT NULL,
     "userId" integer NOT NULL,
-    views integer DEFAULT 0
+    "visitCount" integer DEFAULT 0,
+    "createdAt" timestamp without time zone DEFAULT now() NOT NULL
 );
 
 
@@ -60,7 +61,8 @@ ALTER SEQUENCE public.links_id_seq OWNED BY public.links.id;
 CREATE TABLE public.sessions (
     id integer NOT NULL,
     "userId" integer NOT NULL,
-    token text NOT NULL
+    token text NOT NULL,
+    "createdAt" timestamp without time zone DEFAULT now() NOT NULL
 );
 
 
@@ -92,7 +94,8 @@ CREATE TABLE public.users (
     id integer NOT NULL,
     name text NOT NULL,
     email text NOT NULL,
-    password text NOT NULL
+    password text NOT NULL,
+    "createdAt" timestamp without time zone DEFAULT now() NOT NULL
 );
 
 
@@ -141,54 +144,48 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 -- Data for Name: links; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.links VALUES (2, 'urlgrande1naruto', 'urlcurta1naruto', 1, 0);
-INSERT INTO public.links VALUES (3, 'urlgrande2naruto', 'urlcurta2naruto', 1, 0);
-INSERT INTO public.links VALUES (5, 'urlgrande1sakura', 'urlcurta1sakura', 3, 0);
+INSERT INTO public.links VALUES (1, 'urlgrande1sakura', 'urlcurta1sakura', 3, 0, '2023-08-03 14:30:29.4964');
+INSERT INTO public.links VALUES (3, 'urlgrande3sakura', 'urlcurta3sakura', 3, 10, '2023-08-03 14:30:51.976572');
+INSERT INTO public.links VALUES (2, 'urlgrande2sakura', 'urlcurta2sakura', 3, 4, '2023-08-03 14:30:41.042418');
 
 
 --
 -- Data for Name: sessions; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.sessions VALUES (1, 3, 'token2dasakura');
-INSERT INTO public.sessions VALUES (2, 3, 'tokendasakura');
-INSERT INTO public.sessions VALUES (4, 3, 'token3dasakura');
-INSERT INTO public.sessions VALUES (5, 1, 'tokendonaruto');
-INSERT INTO public.sessions VALUES (6, 1, 'token2donaruto');
-INSERT INTO public.sessions VALUES (11, 6, '955565af-5f1a-454d-8652-74b9d75d3f5c');
+INSERT INTO public.sessions VALUES (1, 3, 'tokendasakura', '2023-08-03 14:28:24.32817');
+INSERT INTO public.sessions VALUES (2, 4, 'b39f34df-1506-47f6-9fad-1a43c0d8f9ad', '2023-08-03 14:28:56.21639');
 
 
 --
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.users VALUES (1, 'Naruto', 'narutol@gmail.com', '12345');
-INSERT INTO public.users VALUES (2, 'Sasuke', 'sasukel@gmail.com', '12345');
-INSERT INTO public.users VALUES (3, 'Sakura', 'sakura@gmail.com', '12345');
-INSERT INTO public.users VALUES (4, 'Temari', 'temari@gmail.com', 'teste');
-INSERT INTO public.users VALUES (5, 'Shikamaru', 'shikamaru@gmail.com', '$2b$10$7VZHsc463XBeShwffAMOvOVGw4a0YxoIc0Xf27mKBKeAUhaulf.t6');
-INSERT INTO public.users VALUES (6, 'Tenten', 'tenten@gmail.com', '$2b$10$JhO.mGqdUi0d.ujlCbssFeRfTl/DTviJZk1P.EmjraPRWA0vtAU/2');
+INSERT INTO public.users VALUES (1, 'Naruto', 'narutol@gmail.com', '12345', '2023-08-03 14:26:27.433475');
+INSERT INTO public.users VALUES (2, 'Sasuke', 'sasukel@gmail.com', '12345', '2023-08-03 14:26:27.433475');
+INSERT INTO public.users VALUES (3, 'Sakura', 'sakura@gmail.com', '12345', '2023-08-03 14:26:27.433475');
+INSERT INTO public.users VALUES (4, 'Tenten', 'tenten@gmail.com', '$2b$10$no4/EEYjh0MSY2YX3.GXaOtoU8iEFG0tkGqWvS1Qrs.fD0bDa02IW', '2023-08-03 14:28:54.320051');
 
 
 --
 -- Name: links_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.links_id_seq', 8, true);
+SELECT pg_catalog.setval('public.links_id_seq', 3, true);
 
 
 --
 -- Name: sessions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.sessions_id_seq', 11, true);
+SELECT pg_catalog.setval('public.sessions_id_seq', 2, true);
 
 
 --
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.users_id_seq', 6, true);
+SELECT pg_catalog.setval('public.users_id_seq', 4, true);
 
 
 --

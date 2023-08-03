@@ -26,7 +26,6 @@ export async function login(req, res) {
     const passwordString = password.toString()
     try {
         const user = await db.query(`SELECT id, email, password FROM users WHERE email=$1;`, [email])
-        //console.log(user.rows[0])
 
         if (user.rows[0] && bcrypt.compareSync(passwordString, user.rows[0].password)) {
             const token = uuid()
@@ -35,13 +34,14 @@ export async function login(req, res) {
             await db.query(`
                 INSERT INTO sessions ("userId", "token") 
                 VALUES ($1, $2);`, [user.rows[0].id, token])
+
+            res.send({token})
+
         } else if (!user.rows[0]) {
-            return res.status(404).send("usuário não encontrado (email incorreto)");
+            return res.status(401).send("usuário não encontrado (email incorreto)");
         } else {
             return res.status(401).send("usuário não encontrado (senha incorreta)");
         }
-
-        res.send("login")
     } catch (err) {
         res.status(500).send(err.message);
     }
