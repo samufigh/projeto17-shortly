@@ -1,4 +1,5 @@
 export async function shorten(req, res){
+    const {url} = req.body
     try {
         res.send("shorten")
     } catch (err) {
