@@ -2,11 +2,12 @@ import { Router } from "express"
 import { deleteURL, shorten, myURLS } from "../controllers/home.controllers.js"
 import { validadeSchema } from "../middlewares/validateSchema.js"
 import { schemaUrl } from "../schemas/url.schemas.js"
+import { validateAuth } from "../middlewares/validateAuth.js"
 
 const homeRouter = Router()
 
 //faz o encurtamento
-homeRouter.post("/urls/shorten", validadeSchema(schemaUrl), shorten)
+homeRouter.post("/urls/shorten",validateAuth, validadeSchema(schemaUrl), shorten)
 
 //apaga a url
 homeRouter.delete("/urls/:id", deleteURL)
