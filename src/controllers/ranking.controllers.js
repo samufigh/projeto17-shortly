@@ -1,6 +1,11 @@
+import { db } from "../database/database.connection.js";
+
 export async function userURLS(req, res){
     try {
-        res.send("userURLS")
+        const urls = await db.query(`
+            SELECT * FROM links;
+        `)
+        res.send(urls.rows)
     } catch (err) {
         res.status(500).send(err.message);
     }
