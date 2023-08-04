@@ -13,6 +13,6 @@ homeRouter.post("/urls/shorten",validateAuth, validateSchema(schemaUrl), shorten
 homeRouter.delete("/urls/:id", validateAuth, deleteURL)
 
 //exibe os links encurtados pelo usuário
-homeRouter.get("/users/me", myURLS)
+homeRouter.get("/users/me",validateAuth, myURLS)
 
 export default homeRouter
