@@ -13,15 +13,20 @@ export async function URL(req, res){
     }
 }
 
-export async function openURL(req, res){
-    const {shortUrl} = req.params
+export async function openURL(req, res) {
+    const { shortUrl } = req.params;
     try {
-        const exist = await db.query(`SELECT "shortUrl", "visitCount" FROM links WHERE "shortUrl"=$1;`, [shortUrl])
-        console.log(exist.rows[0].visitCount)
-        if (exist.rowCount === 0) return res.status(404).send("Url não existente")
-        await db.query(`UPDATE links SET "visitCount"=$1 WHERE "shortUrl"=$2;`, [exist.rows[0].visitCount + 1, shortUrl])
-    
-        res.redirect(shortUrl)
+        const exist = await db.query(`SELECT "shortUrl", "visitCount" FROM links WHERE "shortUrl"=$1;`, [shortUrl]);
+
+        if (exist.rowCount === 0) return res.status(404).send("Url não existente");
+
+        const view = exist.rows[0].visitCount + 1;
+        console.log(view);
+
+        await db.query(`UPDATE links SET "visitCount"=$1 WHERE "shortUrl"=$2;`, [view, shortUrl]);
+       
+        res.redirect(exist.rows[0].shortUrl)
+        
     } catch (err) {
         res.status(500).send(err.message);
     }
