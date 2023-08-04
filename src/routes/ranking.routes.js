@@ -1,10 +1,10 @@
 import { Router } from "express"
-import { openURL, ranking, userURLS } from "../controllers/ranking.controllers.js"
+import { openURL, ranking, URL} from "../controllers/ranking.controllers.js"
 
 const rankingRouter = Router()
 
 //exibe as urls da pessoa selecionada
-rankingRouter.get("/urls/:id", userURLS)
+rankingRouter.get("/urls/:id", URL)
 
 //redireciona para a url selecionada e aumenta uma view
 rankingRouter.get("/urls/open/:shortUrl", openURL)
